@@ -7,7 +7,7 @@ package Business;
 
 /**
  *
- * @author shashwatshrey
+ * @author aakashrajawat
  */
 import java.awt.event.KeyEvent;
 import java.util.Properties;
@@ -22,10 +22,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-/**
- *
- * @author shivibhatt
- */
+
 public class Validation {
     public static boolean nameValidator(String name) {
         Pattern pattern;
