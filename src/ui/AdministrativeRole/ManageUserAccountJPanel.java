@@ -226,6 +226,25 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+String userName = txtUsernamee.getText();
+        String password = txtPass.getText();
+        Organization organization = (Organization) cmbOrg.getSelectedItem();
+        Employee employee = (Employee) cmbEmp.getSelectedItem();
+        Role role = (Role) cmbRolebox.getSelectedItem();
+        
+        if(userName.equals("") || password.equals("")){
+            JOptionPane.showMessageDialog(null, "Please agree to the terms of service", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if(!organization.getUserAccountDirectory().checkIfUsernameIsUnique(userName)){
+            JOptionPane.showMessageDialog(null, "Username already exists, select a new username", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+        dB4OUtil.storeSystem(system);
+        txtUsernamee.setText("");
+        txtPass.setText("");
+        popData();
         
     }//GEN-LAST:event_btnCreateActionPerformed
 

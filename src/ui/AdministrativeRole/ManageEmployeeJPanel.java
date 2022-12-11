@@ -190,13 +190,29 @@ public class ManageEmployeeJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateeActionPerformed
+Organization organization = (Organization) cmborgEmp.getSelectedItem();
+        String name = txtName.getText();
+        if(name.equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter a name", "Warning", JOptionPane.WARNING_MESSAGE);
+            
+        }
+        organization.getEmployeeDirectory().createEmployee(name);
+        populateTable(organization);
+        //store data in database
+        dB4OUtil.storeSystem(system);
+        txtName.setText("");
+         JOptionPane.showMessageDialog(null, "Employee created");
         
        
            
     }//GEN-LAST:event_btnCreateeActionPerformed
 
     private void cmbOrgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbOrgActionPerformed
-       
+       Organization organization = (Organization) cmbOrg.getSelectedItem();
+        if (organization != null){
+            populateTable(organization);
+        }
+
     }//GEN-LAST:event_cmbOrgActionPerformed
 
     private void cmborgEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmborgEmpActionPerformed

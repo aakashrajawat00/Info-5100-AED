@@ -193,6 +193,13 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdditionActionPerformed
+Type type = (Type) cmbOrg.getSelectedItem();
+        System.out.print(type.getValue());
+        directory.createOrganization(type);
+        System.out.print(type.getValue());
+        populateTable();
+        System.out.print(type.getValue());
+        dB4OUtil.storeSystem(system);
 
         
     }//GEN-LAST:event_btnAdditionActionPerformed
