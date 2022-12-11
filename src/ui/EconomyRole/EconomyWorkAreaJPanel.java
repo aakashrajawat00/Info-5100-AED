@@ -215,11 +215,64 @@ public class EconomyWorkAreaJPanel extends javax.swing.JPanel {
         }
     }
     private void btnApprovedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApprovedActionPerformed
-      
+      // TODO add your handling code here:
+        if(txtgap.getText().equals("") || txtDosage.getText().equals("") || txtPricing.getText().equals("") || txtQuty.equals("")){
+            JOptionPane.showMessageDialog(null, "Please fill all fields", "Warning", JOptionPane.WARNING_MESSAGE);
+            
+        }
+        int selectedRow = tblWorkReq.getSelectedRow();
+        
+        if (selectedRow < 0){
+            return;
+        }
+        
+        approveVaccine request = (approveVaccine)tblWorkReq.getValueAt(selectedRow, 0);
+        
+        if(request.getStatus().equals("Approved")){
+            JOptionPane.showMessageDialog(this, "Vaccine already approved");
+            return;
+        }
+     
+        if(validate(txtQuty.getText(),txtDosage.getText(),txtgap.getText(),txtPricing.getText())){
+        request.setStatus("Approved");
+        request.getVaccine().setStatus("Approved");
+        
+        request.getVaccine().setMgQty(txtQuty.getText());
+        request.getVaccine().setNoOfDoses(Integer.parseInt(txtDosage.getText()));
+        request.getVaccine().setGap(Integer.parseInt(txtgap.getText()));
+        request.getVaccine().setPrice(Double.parseDouble(txtPricing.getText()));
+        populateTable();
+        }
+        dB4OUtil.storeSystem(system);
+        txtgap.setText("");
+        txtDosage.setText("");
+        txtPricing.setText("");
+        txtQuty.setText("");
+
+
     }//GEN-LAST:event_btnApprovedActionPerformed
 
     private void btnRejectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectedActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblWorkReq.getSelectedRow();
         
+        if (selectedRow < 0){
+            return;
+        }
+        
+        approveVaccine request = (approveVaccine)tblWorkReq.getValueAt(selectedRow, 0);
+        if(request.getStatus().equals("Rejected") || request.getStatus().equals("Approved")){
+            JOptionPane.showMessageDialog(this, "Vaccine already processed");
+            return;
+        }
+     
+        request.setStatus("Rejected");
+        request.getVaccine().setStatus("Rejected");
+        request.getVaccine().setMgQty(txtQuty.getText());
+        request.getVaccine().setNoOfDoses(Integer.parseInt(txtDosage.getText()));
+        request.getVaccine().setGap(Integer.parseInt(txtgap.getText()));
+        populateTable();
+
     }//GEN-LAST:event_btnRejectedActionPerformed
 
     private void txtgapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtgapActionPerformed
