@@ -171,19 +171,19 @@ public class ManufacturingWorkAreaJPanel extends javax.swing.JPanel {
         }
         UserAccount cg = new UserAccount();
         Network currnet = enterprise.getNetwork();
-        System.out.println("Outside for");
+       
         for(Enterprise e: currnet.getEnterpriseDirectory().getEnterpriseList()){
-            System.out.println("inside for");
+            
             if(e.getEnterpriseType()==EnterpriseType.Government){
-                System.out.println("gov ep");
+                
                 for(Organization o: e.getOrganizationDirectory().getOrganizationList()){
-                    System.out.println("inside org");
+                    
                     for(UserAccount u: o.getUserAccountDirectory().getUserAccountList()){
-                        System.out.println("inside user");
+                        
                         if(u.getRole().toString()=="Business.Role.EconomyRole"){
-                            System.out.println("user found");
+                            
                             lr.setReceiver(u);
-                            System.out.println(u.getUsername());
+                            
                             cg = u;
                             break;
                         }                        
@@ -198,8 +198,7 @@ public class ManufacturingWorkAreaJPanel extends javax.swing.JPanel {
                 for(Organization o : e.getOrganizationDirectory().getOrganizationList()){
                     for(UserAccount u : o.getUserAccountDirectory().getUserAccountList()){
                         if(u.getRole().toString().equals("Business.Role.SalesRole")){
-                            System.out.println(u.getRole().toString());
-                            System.out.println(u.getUsername());
+                            
                             lr.setSales(u);
                             sale = u;
                             break;

@@ -159,17 +159,13 @@ public class AddVaccineJPanel extends javax.swing.JPanel {
     private void iconBackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconBackMousePressed
         // TODO add your handling code here:
         userProcessContainer.removeAll();
-                //(this);
-        //Component[] componentArray = userProcessContainer.getComponents();
-        //Component component = componentArray[componentArray.length - 1];
+            
         ManufacturingWorkAreaJPanel manufacturingWorkAreaJPanel = new ManufacturingWorkAreaJPanel(userProcessContainer, account, organization, enterprise, system);
         //component;
         userProcessContainer.add("ManufacturingWorkAreaJPanel", manufacturingWorkAreaJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
-        //dB4OUtil.storeSystem(system);
-        //txtName.setText("");
-        //txtScientific.setText("");
+        
 
     }//GEN-LAST:event_iconBackMousePressed
 
