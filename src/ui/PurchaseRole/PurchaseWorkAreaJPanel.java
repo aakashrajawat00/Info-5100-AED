@@ -136,6 +136,20 @@ public class PurchaseWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestActionPerformed
         // TODO add your handling code here:
+        populateTable();
+        int count = tblVacc.getModel().getRowCount();
+        System.out.println("Current count -> " + currentCount);
+        if(currentCount <= 10){
+        RequestVaccineJPanel requestVaccineJPanel = new RequestVaccineJPanel(enterprise.getOrganizationDirectory(), userProcessContainer, organization, enterprise, userAccount);
+        cardRequestPanel.add("requestVaccineJPanel", requestVaccineJPanel);
+        CardLayout layout = (CardLayout) cardRequestPanel.getLayout();
+        layout.next(cardRequestPanel);
+        dB4OUtil.storeSystem(system);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "You already have enough vaccine in stock please utilise them before ordering");
+        }
+
         
     }//GEN-LAST:event_btnRequestActionPerformed
 
