@@ -157,64 +157,130 @@ public class DoctorWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblReq.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(this, "Please select a person's record to test");
+            return;
+        }
+        appointment a = (appointment)tblReq.getValueAt(selectedRow, 0);
+        if(!(a.getStatus().equals("Approved"))){
+            JOptionPane.showMessageDialog(this, "Please approve appointment first");
+            return;
+        }
+        UserAccount labUser = new UserAccount();
+        Organization org = null;
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if (organization instanceof LabOrganization){
+                org = organization;
+                for(UserAccount u : organization.getUserAccountDirectory().getUserAccountList()){
+                    System.out.println(u.getUsername());
+                    System.out.println(u.getRole().toString());
+                    if(u.getRole().toString().equals("Business.Role.LabRole")){
+                        a.setLab(u);
+                        labUser = u;
+                        break;
+                    }
+                }
+            break;
+            }
+            
+        }
+        populateTable();
+        if (org!=null){
+            org.getWorkQueue().getWorkRequestList().add(a);
+            labUser.getWorkQueue().getWorkRequestList().add(a);
+        }
+
+            JOptionPane.showMessageDialog(this, "Request sent to lab!");
         
     }//GEN-LAST:event_btnTestActionPerformed
 
     private void btnApprovedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApprovedActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblReq.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(this, "Please select a person's request to schedule");
+            return;
+        }
+        Date d = new Date();
+        System.out.println(d);
+        //Date date = appointmentjDateChooser.getDate();
+       try{
+        if(appointmentjDateChooser.getDate().toString().length()<1){
+            JOptionPane.showMessageDialog(this, "Please choose a date to schedule vaccination");
+            return;
+        }
+        }
+        catch(NullPointerException e){
+            System.out.println("Null exception caught");
+            JOptionPane.showMessageDialog(this, "Please select a date");
+            return;
+        }
+        if(appointmentjDateChooser.getDate().before(d)){
+            JOptionPane.showMessageDialog(this, "Please select a future date");
+            return;
+        }
+        appointment req = (appointment)tblReq.getModel().getValueAt(selectedRow, 0);
+        
+        if(req.getStatus().equals("Approved")){
+            JOptionPane.showMessageDialog(this, "Person is already scheduled an appointment");
+            //System.out.println("Person is already scheduled a vaccination slot");
+            return;
+        }
+        
+        
+        req.setStatus("Approved");
+        dB4OUtil.storeSystem(system);
+        populateTable();
+//        btnPrescribeMed.setVisible(true);
+//        btnTest.setVisible(true);
+
+
+
         
     }//GEN-LAST:event_btnApprovedActionPerformed
 
     private void btnPrescribedmedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrescribedmedActionPerformed
         // TODO add your handling code here:
-        if(txtMedList.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please agree to the terms of service", "Warning", JOptionPane.WARNING_MESSAGE);
-            
+        int selectedRow = tblReq.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(this, "Please select a person's record to prescribe");
+            return;
+        } 
+        appointment a = (appointment)tblReq.getValueAt(selectedRow, 0);
+        if(!(a.getStatus().equals("Approved"))){
+            JOptionPane.showMessageDialog(this, "Please approve appointment first");
+            return;
         }
-        
-        if(validate(txtMedList.getText())){
-            UserAccount pharma = new UserAccount();
-            prescribeMedicine pm = new prescribeMedicine();
-            pm.setPerson(person);
-            pm.setSender(account);
-            Network cn = enterprise.getNetwork();
-            System.out.println("Outside for");
-            for(Enterprise e : cn.getEnterpriseDirectory().getEnterpriseList()){
-                System.out.println("inside for");
-                if(e.getEnterpriseType() == EnterpriseType.Hospital){
-                    System.out.println("inside enterprise");
-                    for(Organization o : e.getOrganizationDirectory().getOrganizationList()){
-                        System.out.println("inside for org");
-                        for(UserAccount u : o.getUserAccountDirectory().getUserAccountList()){
-                            System.out.println("inside for user");
-                            if(u.getRole().toString().equals("Business.Role.PharmaRole")){
-                                System.out.println("user found");
-                                pm.setReceiver(u);
-                                System.out.println(u.getUsername());
-                                pharma = u;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            pm.setMessage(person.getUsername());
-            pm.setMedList(txtMedList.getText());
-            pm.setStatus("Request");
-            person.getWorkQueue().getWorkRequestList().add(pm);
-            account.getWorkQueue().getWorkRequestList().add(pm);
-            pharma.getWorkQueue().getWorkRequestList().add(pm);
-        }
-        dB4OUtil.storeSystem(system);
-        txtMedList.setText("");
-         JOptionPane.showMessageDialog(null, "Request Submited");
-           
-    }                                           
+        WorkRequest w = (WorkRequest) tblReq.getModel().getValueAt(selectedRow, 0);
+        UserAccount p = w.getSender();
+        userProcessContainer.removeAll();
+        AddPrescriptionJPanel addPresciptionJPanel = new AddPrescriptionJPanel(userProcessContainer, enterprise, organization, system, userAccount, p);
+        userProcessContainer.add("addPresciptionJPanel", addPresciptionJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
+        populateTable();
 
+
+
+        
     }//GEN-LAST:event_btnPrescribedmedActionPerformed
 
     private void btnRejectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectedActionPerformed
         // TODO add your handling code here:int selectedRow = tblRequest.getSelectedRow();
+        int selectedRow = tblReq.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(this, "Please select a person's request to schedule");
+            return;
+        }
+        appointment a = (appointment)tblReq.getValueAt(selectedRow, 0);
+        a.setDate(appointmentjDateChooser.getDate().toString());
+        a.setStatus("Rejected");
+        dB4OUtil.storeSystem(system);
+        populateTable();
+        btnPrescribedmed.setVisible(true);
+        btnTest.setVisible(true);
+
         
     }//GEN-LAST:event_btnRejectedActionPerformed
 
