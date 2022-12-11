@@ -245,6 +245,11 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please enter all Values", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        if(!Business.Validation.passwordValidator(password)){
+            JOptionPane.showMessageDialog(null, "Password Criteria not Satisfied. Enter a password with 8 Characters, a Special character, 1 Uppercase and Numerical values", "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+        
         if(!enterprise.getUserAccountDirectory().checkIfUsernameIsUnique(username)){
             JOptionPane.showMessageDialog(null, "Username already exists, select a new username", "Error", JOptionPane.WARNING_MESSAGE);
             return;
