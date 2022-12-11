@@ -102,50 +102,60 @@ public class AddPrescriptionJPanel extends javax.swing.JPanel {
 
     private void btnSubmititActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmititActionPerformed
         // TODO add your handling code here:
-        int selectedRow = tblReq.getSelectedRow();
-        if(selectedRow<0){
-            JOptionPane.showMessageDialog(this, "Please select a person's request to schedule");
-            return;
-        }
-        Date d = new Date();
-        System.out.println(d);
-        //Date date = appointmentjDateChooser.getDate();
-       try{
-        if(appointmentjDateChooser.getDate().toString().length()<1){
-            JOptionPane.showMessageDialog(this, "Please choose a date to schedule vaccination");
-            return;
-        }
-        }
-        catch(NullPointerException e){
-            System.out.println("Null exception caught");
-            JOptionPane.showMessageDialog(this, "Please select a date");
-            return;
-        }
-        if(appointmentjDateChooser.getDate().before(d)){
-            JOptionPane.showMessageDialog(this, "Please select a future date");
-            return;
-        }
-        appointment req = (appointment)tblReq.getModel().getValueAt(selectedRow, 0);
-        
-        if(req.getStatus().equals("Approved")){
-            JOptionPane.showMessageDialog(this, "Person is already scheduled an appointment");
-            //System.out.println("Person is already scheduled a vaccination slot");
-            return;
+        if(txtMedList.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Please agree to the terms of service", "Warning", JOptionPane.WARNING_MESSAGE);
+            
         }
         
-        
-        req.setStatus("Approved");
+        if(validate(txtMedList.getText())){
+            UserAccount pharma = new UserAccount();
+            prescribeMedicine pm = new prescribeMedicine();
+            pm.setPerson(person);
+            pm.setSender(account);
+            Network cn = enterprise.getNetwork();
+            System.out.println("Outside for");
+            for(Enterprise e : cn.getEnterpriseDirectory().getEnterpriseList()){
+                System.out.println("inside for");
+                if(e.getEnterpriseType() == EnterpriseType.Hospital){
+                    System.out.println("inside enterprise");
+                    for(Organization o : e.getOrganizationDirectory().getOrganizationList()){
+                        System.out.println("inside for org");
+                        for(UserAccount u : o.getUserAccountDirectory().getUserAccountList()){
+                            System.out.println("inside for user");
+                            if(u.getRole().toString().equals("Business.Role.PharmaRole")){
+                                System.out.println("user found");
+                                pm.setReceiver(u);
+                                System.out.println(u.getUsername());
+                                pharma = u;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            pm.setMessage(person.getUsername());
+            pm.setMedList(txtMedList.getText());
+            pm.setStatus("Request");
+            person.getWorkQueue().getWorkRequestList().add(pm);
+            account.getWorkQueue().getWorkRequestList().add(pm);
+            pharma.getWorkQueue().getWorkRequestList().add(pm);
+        }
         dB4OUtil.storeSystem(system);
-        populateTable();
-//        btnPrescribeMed.setVisible(true);
-//        btnTest.setVisible(true);
-
+        txtMedList.setText("");
+         JOptionPane.showMessageDialog(null, "Request Submited");
+           
+                                          
 
        
     }//GEN-LAST:event_btnSubmititActionPerformed
 
     private void icBackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_icBackMousePressed
         // TODO add your handling code here:
+        userProcessContainer.removeAll();
+        DoctorWorkAreaJPanel doctorWorkAreaJPanel = new DoctorWorkAreaJPanel(userProcessContainer, account, organization, enterprise, system);
+        userProcessContainer.add("DoctorWorkAreaJPanel", doctorWorkAreaJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
         
     }//GEN-LAST:event_icBackMousePressed
 
