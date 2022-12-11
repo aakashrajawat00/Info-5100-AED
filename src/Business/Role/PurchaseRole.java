@@ -8,25 +8,22 @@ package Business.Role;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
-import Business.Organization.LabOrganization;
 import Business.Organization.Organization;
-import Business.Organization.ManufacturingOrganization;
+import Business.Organization.PurchaseOrganization;
 import Business.UserAccount.UserAccount;
-import ui.ManufacturingRole.ManufacturingWorkAreaJPanel;
+import ui.PurchaseRole.PurchaseWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
  *
- * @author aakashrajawat
+ * @author vraj
  */
-public class ManufacturingRole extends Role{
+public class PurchaseRole extends Role{
     
-    
-//JPanel userProcessContainer, EcoSystem ecoSystem, UserAccount account, Network network, ManufacturingOrganization organization, Enterprise enterprise
-
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-       return new ManufacturingWorkAreaJPanel(userProcessContainer, account, (ManufacturingOrganization)organization, enterprise, business);
+        return new PurchaseWorkAreaJPanel(userProcessContainer, account, (PurchaseOrganization)organization, enterprise, business);
     }
+
 
 }
