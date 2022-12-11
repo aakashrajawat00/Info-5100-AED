@@ -594,7 +594,12 @@ public class LabAreaJPanel extends javax.swing.JPanel {
 
     private void btnsendReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsendReportActionPerformed
         // TODO add your handling code here:
+        
         String toEmail = txtTo.getText();
+        if(!Business.Validation.emailValidator(toEmail)){
+            JOptionPane.showMessageDialog(null, "Invalid Email ID", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String fromEmail = "aakashrajawat6@gmail.com";
         String fromEmailPassword = "erombkktbouvstvw";
         String subject = "Report for Vaccination Checkup";
@@ -627,6 +632,7 @@ public class LabAreaJPanel extends javax.swing.JPanel {
             message.setSubject(subject);
             message.setText(txtreport.getText());
             Transport.send(message);
+            JOptionPane.showMessageDialog(null, "Email Sent Successfully");
         }catch(Exception e){
             System.out.print(e);
         }
