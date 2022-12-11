@@ -130,7 +130,48 @@ public class OrderJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApprovedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApprovedActionPerformed
-       
+DefaultTableModel modelOrder = (DefaultTableModel)tblAccessRequests.getModel();
+        int selectedIndex = tblAccessRequests.getSelectedRow();
+        String studentid=null;
+        String forumid = null;
+        String reqid = null;
+        if(selectedIndex==-1){
+            
+            JOptionPane.showMessageDialog(this, "Please Select a row!");
+            return;
+            
+        }
+        //String createdby=null;
+        if(selectedIndex!=-1){
+            
+             studentid = modelOrder.getValueAt(selectedIndex, 1).toString();
+             forumid = modelOrder.getValueAt(selectedIndex, 3).toString();
+             reqid = modelOrder.getValueAt(selectedIndex, 4).toString();
+             
+             
+             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        }
+        int fid = Integer.parseInt(forumid);
+        int rid = Integer.parseInt(reqid);
+        Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(fid);
+        forum.getStudentidlist().add(studentid);
+        system.getUniversitydirectory().getReqaccessq().retrieveAccessRequest(rid).setAccept(Boolean.TRUE);
+        populateAccessRequestTable();
+        
+        JOptionPane.showMessageDialog(this, "Request Accepted!");       
+        
+        
+        populateTable();
+        dB4OUtil.storeSystem(system);
+        txtComm.setText("");
+        }
+        break;
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "You must have an approved vaccine in the inventory to manage orders");
+                return;
+            }
+        }       
         
         
         populateTable();

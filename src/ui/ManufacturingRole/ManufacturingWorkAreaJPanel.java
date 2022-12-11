@@ -151,7 +151,31 @@ public class ManufacturingWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSndSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSndSampleActionPerformed
-        
+if((txtUsername.getText().isEmpty())|| (txtPassword.getText().isEmpty())
+        ){
+
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+
+        String reg = "^(?=.*[0-9])"
+        + "(?=.*[a-z])(?=.*[A-Z])"
+        + "(?=.*[@#$%^&+=])"
+        + "(?=\\S+$).{8,20}$";
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(password);
+        int f = 0;
+        if(mat.matches()){
+            f=1;
+
+        }
+        if(f==0){
+
+            JOptionPane.showMessageDialog(this, "Invalid Password!");
+            return;
+
+        }        
     }//GEN-LAST:event_btnSndSampleActionPerformed
 
     private void btnAddVaccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVaccActionPerformed
