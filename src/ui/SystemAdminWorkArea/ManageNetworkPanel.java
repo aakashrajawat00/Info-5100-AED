@@ -142,7 +142,7 @@ public class ManageNetworkPanel extends javax.swing.JPanel {
         
         String name = txtName.getText();
         if(name.equals("")){
-            JOptionPane.showMessageDialog(null, "Please Enter Name", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please Enter Network Name", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Network network = system.createAndAddNetwork();
