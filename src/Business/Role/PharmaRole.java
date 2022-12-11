@@ -15,7 +15,7 @@ import ui.PersonRole.PersonWorkAreaJPanel;
 import ui.ui.PharmaRole.PharmaWorkAreaJPanel;
 /**
  *
- * @author abhis
+ * @author aakashrajawat
  */
 public class PharmaRole extends Role{
 
