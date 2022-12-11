@@ -211,11 +211,13 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         });
         add(cmbRolebox, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 300, -1));
 
+        separatorLine1.setBackground(new java.awt.Color(0, 0, 0));
         separatorLine1.setForeground(new java.awt.Color(255, 255, 255));
         separatorLine1.setMinimumSize(new java.awt.Dimension(1, 12));
         separatorLine1.setPreferredSize(new java.awt.Dimension(1, 12));
         add(separatorLine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 230, 10));
 
+        separatorLine2.setBackground(new java.awt.Color(0, 0, 0));
         separatorLine2.setForeground(new java.awt.Color(255, 255, 255));
         separatorLine2.setMinimumSize(new java.awt.Dimension(1, 12));
         separatorLine2.setPreferredSize(new java.awt.Dimension(1, 12));
@@ -236,6 +238,11 @@ String userName = txtUsernamee.getText();
             JOptionPane.showMessageDialog(null, "Please agree to the terms of service", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
+        if(!Business.Validation.passwordValidator(password)){
+            JOptionPane.showMessageDialog(null, "Password Criteria not Satisfied. Enter a password with 8 Characters, a Special character, 1 Uppercase and Numerical values", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
         if(!organization.getUserAccountDirectory().checkIfUsernameIsUnique(userName)){
             JOptionPane.showMessageDialog(null, "Username already exists, select a new username", "Error", JOptionPane.WARNING_MESSAGE);
             return;
