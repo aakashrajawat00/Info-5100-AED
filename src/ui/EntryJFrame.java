@@ -80,10 +80,10 @@ public class EntryJFrame extends javax.swing.JFrame {
         signinFormPanel.setBackground(new java.awt.Color(0, 0, 51));
         signinFormPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblSignin.setFont(new java.awt.Font("Optima", 1, 26)); // NOI18N
+        lblSignin.setFont(new java.awt.Font("Optima", 1, 24)); // NOI18N
         lblSignin.setForeground(new java.awt.Color(255, 255, 255));
-        lblSignin.setText("Welcome To Vaccine Portal");
-        signinFormPanel.add(lblSignin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 320, 50));
+        lblSignin.setText("Welcome To Flushot Vaccine Portal");
+        signinFormPanel.add(lblSignin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 420, 50));
 
         lblUsername.setFont(new java.awt.Font("Optima", 3, 16)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,7 +157,7 @@ public class EntryJFrame extends javax.swing.JFrame {
         separatorLine4.setForeground(new java.awt.Color(255, 255, 255));
         signinFormPanel.add(separatorLine4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 300, 10));
 
-        signinPanel.add(signinFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 380, 350));
+        signinPanel.add(signinFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 400, 350));
 
         iconExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit.png"))); // NOI18N
         iconExit.addMouseListener(new java.awt.event.MouseAdapter() {
