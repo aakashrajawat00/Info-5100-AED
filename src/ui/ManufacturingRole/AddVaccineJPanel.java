@@ -133,7 +133,66 @@ public class AddVaccineJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnAddVaccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVaccActionPerformed
+{                                          
+        // TODO add your handling code here:
         
+        if((txtUsername.getText().isEmpty())|| (txtPassword.getText().isEmpty())
+                ){
+
+            JOptionPane.showMessageDialog(this, "Field left Blank!");
+        }
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        
+        String reg = "^(?=.*[0-9])"
+        + "(?=.*[a-z])(?=.*[A-Z])"
+        + "(?=.*[@#$%^&+=])"
+        + "(?=\\S+$).{8,20}$";
+        Pattern pat = Pattern.compile(reg);
+        Matcher mat = pat.matcher(password);
+        int f = 0;
+        if(mat.matches()){
+            f=1;
+
+        }
+        if(f==0){
+
+            JOptionPane.showMessageDialog(this, "Invalid Password!");
+            return;
+
+        }
+        
+        if(system.getUserAccountDirectory().checkIfUsernameIsUnique(username)==false){
+
+            JOptionPane.showMessageDialog(this, "Username already taken!");
+            return;
+
+        }
+        
+        if(cmbOrgType.getSelectedItem().toString()=="Therapist"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new TherapistRole());
+            system.getClinicdirectory().getTherapistdir().AddTherapist(username);
+            JOptionPane.showMessageDialog(this, "User Added!");
+            return;
+            
+            
+            
+            
+        }
+        
+        if(cmbOrgType.getSelectedItem().toString()=="Clinic Staff"){
+            
+            system.getUserAccountDirectory().createUserAccount(username, password, new ClinicStaffRole());
+            system.getClinicdirectory().getClinicstaffdir().AddClinicStaff(username);
+            JOptionPane.showMessageDialog(this, "User added!");
+            return;
+            
+            
+            
+        }
+        
+                        
     }//GEN-LAST:event_btnAddVaccActionPerformed
 
     private void iconBackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconBackMousePressed
