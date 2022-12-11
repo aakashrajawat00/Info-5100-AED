@@ -130,49 +130,37 @@ public class OrderJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnApprovedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApprovedActionPerformed
-DefaultTableModel modelOrder = (DefaultTableModel)tblAccessRequests.getModel();
-        int selectedIndex = tblAccessRequests.getSelectedRow();
-        String studentid=null;
-        String forumid = null;
-        String reqid = null;
-        if(selectedIndex==-1){
-            
-            JOptionPane.showMessageDialog(this, "Please Select a row!");
+// TODO add your handling code here:
+        for(Vaccine v : organization.getVaccineDirectory()){
+            System.out.println("Inside for");
+            if(v.getStatus().equals("Approved")){
+                System.out.println("Vaccine record approved");
+                int selectedRow = tblOrder.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(this, "Please select an order to approve");
             return;
-            
         }
-        //String createdby=null;
-        if(selectedIndex!=-1){
-            
-             studentid = modelOrder.getValueAt(selectedIndex, 1).toString();
-             forumid = modelOrder.getValueAt(selectedIndex, 3).toString();
-             reqid = modelOrder.getValueAt(selectedIndex, 4).toString();
-             
-             
-             //createdby = modelOrder.getValueAt(selectedIndex, 2).toString();
+        requestVaccine request = (requestVaccine)tblOrder.getValueAt(selectedRow, 0);
+        
+        if(request.getStatus().equals("Approved")){
+            JOptionPane.showMessageDialog(this, "Vaccine already approved");
+            return;
         }
-        int fid = Integer.parseInt(forumid);
-        int rid = Integer.parseInt(reqid);
-        Forum forum = system.getUniversitydirectory().getForumqueue().retrieveForum(fid);
-        forum.getStudentidlist().add(studentid);
-        system.getUniversitydirectory().getReqaccessq().retrieveAccessRequest(rid).setAccept(Boolean.TRUE);
-        populateAccessRequestTable();
-        
-        JOptionPane.showMessageDialog(this, "Request Accepted!");       
-        
-        
-        populateTable();
-        dB4OUtil.storeSystem(system);
-        txtComm.setText("");
-        }
-        break;
+     
+        if(validate(txtComm.getText())){
+        request.setStatus("Approved");
+        request.setTestResult("Approved");
+        ArrayList<PurchaseInventory> inv = ((requestVaccine) request).getInventoryPurchase();
+        if(inv!=null){
+            for(PurchaseInventory p : inv){
+                ((requestVaccine) request).setQty(p.getQty());
+                
             }
-            else{
-                JOptionPane.showMessageDialog(this, "You must have an approved vaccine in the inventory to manage orders");
-                return;
             }
-        }       
+
+
         
+       
         
         populateTable();
         dB4OUtil.storeSystem(system);
@@ -188,7 +176,23 @@ DefaultTableModel modelOrder = (DefaultTableModel)tblAccessRequests.getModel();
     }//GEN-LAST:event_btnApprovedActionPerformed
 
     private void btnRejectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRejectedActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblOrder.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(this, "Please select an order");
+            return;
+        }
+        requestVaccine request = (requestVaccine)tblOrder.getValueAt(selectedRow, 0);
         
+        if(request.getStatus().equals("Rejected") || request.getStatus().equals("Approved")){
+            JOptionPane.showMessageDialog(this, "Vaccine already processed");
+            return;
+        }
+     
+        if(validate(txtComm.getText())){
+        request.setStatus("Rejected");
+        request.setTestResult("Rejected");
+
         populateTable();
         }
     }//GEN-LAST:event_btnRejectedActionPerformed
