@@ -151,31 +151,85 @@ public class ManufacturingWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSndSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSndSampleActionPerformed
-if((txtUsername.getText().isEmpty())|| (txtPassword.getText().isEmpty())
-        ){
 
-            JOptionPane.showMessageDialog(this, "Field left Blank!");
-        }
-        String username = txtUsername.getText();
-        String password = txtPassword.getText();
-
-        String reg = "^(?=.*[0-9])"
-        + "(?=.*[a-z])(?=.*[A-Z])"
-        + "(?=.*[@#$%^&+=])"
-        + "(?=\\S+$).{8,20}$";
-        Pattern pat = Pattern.compile(reg);
-        Matcher mat = pat.matcher(password);
-        int f = 0;
-        if(mat.matches()){
-            f=1;
-
-        }
-        if(f==0){
-
-            JOptionPane.showMessageDialog(this, "Invalid Password!");
+// TODO add your handling code here:
+//        this.network = network;
+        int selectedRow = tblReq.getSelectedRow();
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(this, "Please select a vaccine record to send for approval");
             return;
+        }
+        approveVaccine lr = new approveVaccine();
+        Vaccine v = (Vaccine) tblReq.getValueAt(selectedRow, 0);
+        if(v.getStatus().equals("Approved")){
+            JOptionPane.showMessageDialog(this, "Vaccine already approved!!");
+            return;
+        }
+        if(v.getStatus().equals("Rejected")){
+            JOptionPane.showMessageDialog(this, "Vaccine was rejected, please send new vaccine for approval");
+            return;
+        }
+        UserAccount cg = new UserAccount();
+        Network currnet = enterprise.getNetwork();
+        System.out.println("Outside for");
+        for(Enterprise e: currnet.getEnterpriseDirectory().getEnterpriseList()){
+            System.out.println("inside for");
+            if(e.getEnterpriseType()==EnterpriseType.Government){
+                System.out.println("gov ep");
+                for(Organization o: e.getOrganizationDirectory().getOrganizationList()){
+                    System.out.println("inside org");
+                    for(UserAccount u: o.getUserAccountDirectory().getUserAccountList()){
+                        System.out.println("inside user");
+                        if(u.getRole().toString()=="Business.Role.EconomyRole"){
+                            System.out.println("user found");
+                            lr.setReceiver(u);
+                            System.out.println(u.getUsername());
+                            cg = u;
+                            break;
+                        }                        
+                        
+                    }
+                }
+            }
+        }
+        UserAccount sale = new UserAccount();
+        for(Enterprise e : currnet.getEnterpriseDirectory().getEnterpriseList()){
+            if(e.getEnterpriseType() == EnterpriseType.Pharmaceutical){
+                for(Organization o : e.getOrganizationDirectory().getOrganizationList()){
+                    for(UserAccount u : o.getUserAccountDirectory().getUserAccountList()){
+                        if(u.getRole().toString().equals("Business.Role.SalesRole")){
+                            System.out.println(u.getRole().toString());
+                            System.out.println(u.getUsername());
+                            lr.setSales(u);
+                            sale = u;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        lr.setVaccine(v);
+        lr.setMessage(v.getName());
+        lr.setSender(userAccount);
+        lr.setStatus("requested");
+        cg.getWorkQueue().getWorkRequestList().add(lr);
+        sale.getWorkQueue().getWorkRequestList().add(lr);
+        JOptionPane.showMessageDialog(this, "Approval Requested!!");
+        populateTable();
+        
+        
+        Organization org = null;
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if (organization instanceof EconomyOrganization){
+                org = organization;
+                break;
+            }
+        }
+        if (org!=null){
+            org.getWorkQueue().getWorkRequestList().add(lr);
+            userAccount.getWorkQueue().getWorkRequestList().add(lr);
+        }
 
-        }        
     }//GEN-LAST:event_btnSndSampleActionPerformed
 
     private void btnAddVaccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddVaccActionPerformed
