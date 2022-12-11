@@ -45,9 +45,9 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     
     private void populateCombo(){
         cmbOrg.removeAllItems();
-        //System.out.println("User account  --> " + account.getRole().getClass().toString());
+        
         String enterpriseType = enterprise.getClass().toString();
-        //System.out.println(enterprise.getClass().toString());
+        
         for (Type type : Type.values()){
             if (enterpriseType.equals("class Business.Enterprise.GovernmentEnterprise")){
                 if(type.equals(Type.Health)){
@@ -194,11 +194,11 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     private void btnAdditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdditionActionPerformed
 Type type = (Type) cmbOrg.getSelectedItem();
-        System.out.print(type.getValue());
+        
         directory.createOrganization(type);
-        System.out.print(type.getValue());
+        
         populateTable();
-        System.out.print(type.getValue());
+        
         dB4OUtil.storeSystem(system);
 
         

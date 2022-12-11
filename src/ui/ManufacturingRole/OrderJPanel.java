@@ -45,7 +45,7 @@ public class OrderJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.userProcessContainer = userProcessContainer;
         this.userAccount = userAccount;
-        System.out.println(enterprise.getName());
+        
         
         populateTable();
     }
@@ -132,9 +132,9 @@ public class OrderJPanel extends javax.swing.JPanel {
     private void btnApprovedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApprovedActionPerformed
 // TODO add your handling code here:
         for(Vaccine v : organization.getVaccineDirectory()){
-            System.out.println("Inside for");
+            
             if(v.getStatus().equals("Approved")){
-                System.out.println("Vaccine record approved");
+                
                 int selectedRow = tblOrder.getSelectedRow();
         if(selectedRow<0){
             JOptionPane.showMessageDialog(this, "Please select an order to approve");
@@ -212,7 +212,7 @@ public class OrderJPanel extends javax.swing.JPanel {
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblOrder.getModel();
         model.setRowCount(0);
-        System.out.println(enterprise.getName());
+        
         try{
         for(WorkRequest wr : userAccount.getWorkQueue().getWorkRequestList()){
             ArrayList<PurchaseInventory> inv = ((requestVaccine) wr).getInventoryPurchase();
@@ -229,7 +229,7 @@ public class OrderJPanel extends javax.swing.JPanel {
         }
     }
         catch(NullPointerException e){
-            System.out.println("Null exception caught");
+            
     }
     }
 

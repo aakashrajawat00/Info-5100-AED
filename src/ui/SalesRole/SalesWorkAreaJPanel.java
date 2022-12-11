@@ -184,9 +184,9 @@ public class SalesWorkAreaJPanel extends javax.swing.JPanel {
             
         }
         for(Vaccine v : org.getVaccineDirectory()){
-            System.out.println("Inside for");
+            
             if(v.getStatus().equals("Approved")){
-                System.out.println("Vaccine record approved");
+               
                 int selectedRow = tblOrder.getSelectedRow();
         if(selectedRow<0){
             JOptionPane.showMessageDialog(this, "Please select an order to approve");
@@ -239,9 +239,9 @@ public class SalesWorkAreaJPanel extends javax.swing.JPanel {
             
         }
         for(Vaccine v : org.getVaccineDirectory()){
-            System.out.println("Inside for");
+           
             if(v.getStatus().equals("Approved")){
-                System.out.println("Vaccine record approved");
+               
                 int selectedRow = tblOrder.getSelectedRow();
         if(selectedRow<0){
             JOptionPane.showMessageDialog(this, "Please select an order to approve");
