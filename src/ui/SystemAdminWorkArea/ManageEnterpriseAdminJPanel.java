@@ -242,7 +242,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         
         Employee employee = enterprise.getEmployeeDirectory().createEmployee(name);
         if(username.equals("") || password.equals("")||name.equals("")){
-            JOptionPane.showMessageDialog(null, "Please agree to the terms of service", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter all Values", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if(!enterprise.getUserAccountDirectory().checkIfUsernameIsUnique(username)){
