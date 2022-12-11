@@ -170,6 +170,11 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         txtPass.setFont(new java.awt.Font("Optima", 0, 16)); // NOI18N
         txtPass.setForeground(new java.awt.Color(255, 255, 255));
         txtPass.setBorder(null);
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassActionPerformed(evt);
+            }
+        });
         add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, 230, -1));
 
         lblEmp.setFont(new java.awt.Font("Optima", 0, 16)); // NOI18N
@@ -270,6 +275,10 @@ String userName = txtUsernamee.getText();
     private void cmbEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEmpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbEmpActionPerformed
+
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
