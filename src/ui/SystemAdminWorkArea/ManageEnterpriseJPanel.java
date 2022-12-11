@@ -183,7 +183,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         String name = txtName.getText();
         if(name.equals("")){
-            JOptionPane.showMessageDialog(null, "Please Enter Name", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please Enter Enterprise Name", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Enterprise enterprise = network.getEnterpriseDirectory().createAndAddEnterprise(name, type, network);
