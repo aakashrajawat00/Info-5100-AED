@@ -95,7 +95,7 @@ public class ScheduleAppointmentJPanel extends javax.swing.JPanel {
         cmbHosp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(cmbHosp, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, -1, -1));
 
-        btnReq.setBackground(new java.awt.Color(0, 0, 0));
+        btnReq.setBackground(new java.awt.Color(255, 255, 255));
         btnReq.setFont(new java.awt.Font("Optima", 0, 16)); // NOI18N
         btnReq.setText("Request");
         btnReq.addActionListener(new java.awt.event.ActionListener() {
