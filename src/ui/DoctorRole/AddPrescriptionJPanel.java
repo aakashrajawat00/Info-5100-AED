@@ -69,10 +69,8 @@ public class AddPrescriptionJPanel extends javax.swing.JPanel {
         lblMedicalList.setText("Medicine List:");
         add(lblMedicalList, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, -1, -1));
 
-        txtMedList.setBackground(new java.awt.Color(204, 255, 255));
         txtMedList.setColumns(20);
         txtMedList.setFont(new java.awt.Font("Optima", 0, 16)); // NOI18N
-        txtMedList.setForeground(new java.awt.Color(255, 255, 255));
         txtMedList.setRows(5);
         txtMedList.setBorder(null);
         jScrollPane1.setViewportView(txtMedList);
