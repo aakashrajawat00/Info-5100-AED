@@ -104,7 +104,7 @@ public class PurchaseWorkAreaJPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 420, 180));
 
-        btnRequest.setBackground(new java.awt.Color(0, 0, 0));
+        btnRequest.setBackground(new java.awt.Color(255, 255, 255));
         btnRequest.setFont(new java.awt.Font("Optima", 0, 16)); // NOI18N
         btnRequest.setText("Request Vaccine");
         btnRequest.addActionListener(new java.awt.event.ActionListener() {
