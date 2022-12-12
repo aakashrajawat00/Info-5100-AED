@@ -248,6 +248,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         
         if(!Business.Validation.passwordValidator(password)){
             JOptionPane.showMessageDialog(null, "Password Criteria not Satisfied. Enter a password with 8 Characters, a Special character, 1 Uppercase and Numerical values", "Warning", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         if(!enterprise.getUserAccountDirectory().checkIfUsernameIsUnique(username)){
