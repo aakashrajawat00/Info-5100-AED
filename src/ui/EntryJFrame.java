@@ -159,6 +159,7 @@ public class EntryJFrame extends javax.swing.JFrame {
 
         signinPanel.add(signinFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 400, 350));
 
+        iconExit.setFont(new java.awt.Font("Optima", 0, 13)); // NOI18N
         iconExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit.png"))); // NOI18N
         iconExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
