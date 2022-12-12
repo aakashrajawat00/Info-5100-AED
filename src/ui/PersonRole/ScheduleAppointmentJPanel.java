@@ -154,14 +154,11 @@ public class ScheduleAppointmentJPanel extends javax.swing.JPanel {
         Network currNet = enterprise.getNetwork();
         
         for(Enterprise e : currNet.getEnterpriseDirectory().getEnterpriseList()){
-            //System.out.print("1");
-            //System.out.println(e.getEnterpriseType());
+            
             if(e.getEnterpriseType().toString().equals("Hospital")){
                 for(Organization o : e.getOrganizationDirectory().getOrganizationList()){
                     for(UserAccount u : o.getUserAccountDirectory().getUserAccountList()){
-                        //System.out.println("2");
-                        //System.out.println(u.getRole().toString());
-                        //System.out.println(u.getUsername());
+                        
                         if(u.getRole().toString().equals("Business.Role.DoctorRole")){
                             v.setReceiver(u);
                             receiver = u;
