@@ -244,7 +244,7 @@ public class SalesWorkAreaJPanel extends javax.swing.JPanel {
                
                 int selectedRow = tblOrder.getSelectedRow();
         if(selectedRow<0){
-            JOptionPane.showMessageDialog(this, "Please select an order to approve");
+            JOptionPane.showMessageDialog(this, "Please select a row to Reject");
             return;
         }
         requestVaccine request = (requestVaccine)tblOrder.getValueAt(selectedRow, 0);
